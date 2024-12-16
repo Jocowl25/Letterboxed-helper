@@ -8,17 +8,13 @@
   </head>
   <body>
     <h1>Up and Running with Serverless Functions</h1>
-    <button id="fetch-btn">Fetch</button>
     <p id="response-output">Response Placeholder</p>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const fetchBtn = document.getElementById('fetch-btn')
         const responseText = document.getElementById('response-output')
-
-        fetchBtn.addEventListener('click', () => {
-          responseText.innerText = 'Static Text Replacement'
-        })
+        responseText.innerText = 'Static Text Replacement'
       })
     </script>
   </body>
