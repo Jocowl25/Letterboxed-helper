@@ -11,10 +11,12 @@
     <p id="response-output">Response Placeholder</p>
 
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const fetchBtn = document.getElementById('fetch-btn')
+      document.addEventListener('DOMContentLoaded', async() => {
+        const response = await fetch('/.netlify/functions/hello-world')
+		.then(response => response.json()
+	)
         const responseText = document.getElementById('response-output')
-        responseText.innerText = 'Static Text Replacement'
+        responseText.innerText = JSON.stringify(response)
       })
     </script>
   </body>

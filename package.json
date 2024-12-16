@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "netlify": "^13.2.0",
     "netlify-cli": "^17.38.0",
     "node.js": "^0.0.1-security"
   }
