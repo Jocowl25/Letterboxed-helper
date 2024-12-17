@@ -1,4 +1,5 @@
 
+by skylerburg from https://github.com/aliceyliang/letter-boxed-solver/issues/8#issuecomment-1973894536
 def two_word_solution(word_list, chars):
     output = []
     for word in word_list:
