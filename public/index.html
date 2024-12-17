@@ -9,14 +9,14 @@
   <body>
     <h1>Letterboxed Helper</h1>
     <p id="response-output">Response Placeholder</p>
-
     <script>
       document.addEventListener('DOMContentLoaded', async() => {
         const response = await fetch('/.netlify/functions/hello-world')
 		.then(response => response.json()
 	)
         const responseText = document.getElementById('response-output')
-        responseText.innerText = JSON.stringify(response)
+        responseText.innerText = JSON.stringify(response.ourSolution)
+
       })
     </script>
   </body>
