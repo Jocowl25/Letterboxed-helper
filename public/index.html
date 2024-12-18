@@ -48,18 +48,17 @@
     return output
 }
 
-function solve_puzzle(todays_metadata,exclude = []){ 
+function solve_puzzle(todays_metadata,exclude){ 
     let chars = new Set(todays_metadata.sides.join(''))
     let wordset = todays_metadata.dictionary
     let answers = two_word_solution(wordset, chars)
     //alert(exclude)
-    const isOg = (element) => element == exclude;
-    let og=answers.findIndex(isOg)
-    alert(og)
-    if(og!=-1){
-    answers= answers.splice(og,1)
-    }
-    alert(answers)
+    answers.forEach((ele,i)=>{
+      console.log(ele,exclude)
+      if(ele[0]==exclude[0]&&ele[1]==exclude[1]){
+        answers.splice(i,1)
+      }
+    })
     return answers
     }
 
