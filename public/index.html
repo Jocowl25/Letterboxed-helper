@@ -12,6 +12,7 @@
     <script>
     const areSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
     let dummy;
+    let loadingFinished=false
       document.addEventListener('DOMContentLoaded', async() => {
         try{
           const response = await fetch('/.netlify/functions/hello-world')
@@ -23,6 +24,7 @@
     let p = document.querySelector("p")   
     let nytChoiceSolution=nytData.ourSolution
     let solutions=solve_puzzle(nytData,nytChoiceSolution)
+    loadingFinished=true
     p.innerText=nytChoiceSolution+"-"+solutions;
       })
 
@@ -36,7 +38,6 @@
                 matches.push(w)
             }
     })
-    //alert(matches)
         matches.forEach((m)=>{
         let pair=new Set(word+m)
         if(areSetsEqual(pair,chars)){
@@ -44,7 +45,6 @@
         }
     })
 })
-//alert(output)
     return output
 }
 
@@ -52,7 +52,6 @@ function solve_puzzle(todays_metadata,exclude){
     let chars = new Set(todays_metadata.sides.join(''))
     let wordset = todays_metadata.dictionary
     let answers = two_word_solution(wordset, chars)
-    //alert(exclude)
     answers.forEach((ele,i)=>{
       console.log(ele,exclude)
       if(ele[0]==exclude[0]&&ele[1]==exclude[1]){
