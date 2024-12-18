@@ -10,6 +10,7 @@
     <h1>Letterboxed Helper</h1>
     <p>:(</p>
     <script>
+    const areSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
     let dummy;
       document.addEventListener('DOMContentLoaded', async() => {
         try{
@@ -21,8 +22,8 @@
     let nytData=JSON.parse(((dummy || JSON.stringify(response)).replaceAll('\\', '').slice(12,-2)))
     let p = document.querySelector("p")   
     let nytChoiceSolution=nytData.ourSolution
-    let solutions=solve_puzzle(nytData)
-    p.innerText=nytChoiceSolution+solutions;
+    let solutions=solve_puzzle(nytData,nytChoiceSolution)
+    p.innerText=nytChoiceSolution+"-"+solutions;
       })
 
     function two_word_solution(word_list, chars){
@@ -35,18 +36,15 @@
                 matches.push(w)
             }
     })
+    //alert(matches)
         matches.forEach((m)=>{
-        let pair=new Set(word+","+m)
-        //alert(pair)
-        if(pair==chars){
+        let pair=new Set(word+m)
+        if(areSetsEqual(pair,chars)){
             output.push([word,m])
-        }else{
-          //alert(...pair,...chars)
-          return;
         }
     })
 })
-alert(output)
+//alert(output)
     return output
 }
 
@@ -54,7 +52,13 @@ function solve_puzzle(todays_metadata,exclude = []){
     let chars = new Set(todays_metadata.sides.join(''))
     let wordset = todays_metadata.dictionary
     let answers = two_word_solution(wordset, chars)
-    //answers= answers.filter((x)=>{!exclude.includes(x)})
+    //alert(exclude)
+    const isOg = (element) => element == exclude;
+    let og=answers.findIndex(isOg)
+    alert(og)
+    if(og!=-1){
+    answers= answers.splice(og,1)
+    }
     alert(answers)
     return answers
     }
