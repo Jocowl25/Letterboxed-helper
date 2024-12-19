@@ -5,10 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Letterboxed Helper</title>
+    <style>
+      .mainContainer{
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+        width:100vw;
+      }
+      button{
+        display:inline;
+        margin-left: 5px;
+      }
+      .question{
+        display:inline;
+      }
+    </style>
   </head>
   <body>
-    <h1>Letterboxed Helper</h1>
-    <p>:(</p>
+    <div class="mainContainer">
+      <h1>Letterboxed Helper</h1>
+    <div class="questionContainer">
+      <p class="question">Is one of the words
+      <input type="text"></input> ?</p>
+      <button>Check</button>
+      <p class="result">Null</p>
+    </div>
+    <div class="questionContainer">
+      <p class="question">Does one of the words contain
+      <input type="text"></input> ?</p>
+      <button>Check</button>
+      <p class="result">Null</p>
+    </div>
+    <div class="questionContainer">
+      <p class="question">Does one of the words start with
+      <input type="text"></input> ?</p>
+      <button>Check</button>
+      <p class="result">Null</p>
+    </div>
+    <div class="questionContainer">
+      <p class="question">Does one of the words end with
+      <input type="text"></input> ?</p>
+      <button>Check</button>
+      <p class="result">Null</p>
+    </div>
+  </div>
     <script>
     const areSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
     let dummy;
@@ -21,12 +61,14 @@
           dummy=dummyStringFunction()
         }
     let nytData=JSON.parse(((dummy || JSON.stringify(response)).replaceAll('\\', '').slice(12,-2)))
-    let p = document.querySelector("p")   
     let nytChoiceSolution=nytData.ourSolution
     let solutions=solve_puzzle(nytData,nytChoiceSolution)
     loadingFinished=true
-    p.innerText=nytChoiceSolution+"-"+solutions;
       })
+let inputList=document.querySelectorAll("input")
+let buttonList=document.querySelectorAll("button")
+let resultList = document.querySelector(".result")   
+
 
     function two_word_solution(word_list, chars){
     let output = []
