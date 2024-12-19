@@ -6,18 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Letterboxed Helper</title>
     <style>
+      body{
+        background-color: rgb(232, 153, 165);
+        font-family:Arial, Helvetica, sans-serif
+      }
+      h1{
+        font-size:40px;
+      }
       .mainContainer{
         display:flex;
+        align-items:start;
         justify-content: center;
         flex-direction: column;
         width:100vw;
+        margin-left:30vw;
       }
       button{
-        display:inline;
-        margin-left: 5px;
+        display: inline-block;
+        margin-left:5px;
+  padding: 5px 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #c71e1ebe;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 2px #101010;
+      }
+      button:hover{
+      background-color: #901515be;
+      }
+      button:active{
+        background-color: #901515be;
+        box-shadow: 0 0 #101010;
+        transform: translateY(2px);
       }
       .question{
         display:inline;
+        font-size:20px;
+      }
+      .input{
+        border:none;
+        height:25px;
+        width:100px;
+        font-size:20px;
+        border-bottom:2px solid black;
+        border-radius: 2px;
+        background-color: #f3c3c3be;
+        display:inline;
+        text-align: center;
+      }
+      .long{
+        width:220px;
       }
     </style>
   </head>
@@ -26,25 +68,31 @@
       <h1>Letterboxed Helper</h1>
     <div class="questionContainer">
       <p class="question">Is one of the words
-      <input type="text"></input> ?</p>
+      <input class="input long" type="text"></input> ?</p>
       <button>Check</button>
       <p class="result">Null</p>
     </div>
     <div class="questionContainer">
       <p class="question">Does one of the words contain
-      <input type="text"></input> ?</p>
+      <input class="input" type="text"></input> ?</p>
       <button>Check</button>
       <p class="result">Null</p>
     </div>
     <div class="questionContainer">
       <p class="question">Does one of the words start with
-      <input type="text"></input> ?</p>
+      <input class="input" type="text"></input> ?</p>
       <button>Check</button>
       <p class="result">Null</p>
     </div>
     <div class="questionContainer">
       <p class="question">Does one of the words end with
-      <input type="text"></input> ?</p>
+      <input class="input" type="text"></input> ?</p>
+      <button>Check</button>
+      <p class="result">Null</p>
+    </div>
+    <div class="questionContainer">
+      <p class="question">Is the connecting letter
+      <input class="input" type="text" maxlength="1"></input> ?</p>
       <button>Check</button>
       <p class="result">Null</p>
     </div>
@@ -65,10 +113,18 @@
     let solutions=solve_puzzle(nytData,nytChoiceSolution)
     loadingFinished=true
       })
+
+      function functionList(v){
+        
+      }
+
 let inputList=document.querySelectorAll("input")
 let buttonList=document.querySelectorAll("button")
-let resultList = document.querySelector(".result")   
-
+let resultList = document.querySelectorAll(".result") 
+resultList.forEach((ele)=>{ele.style.opacity="0";})
+buttonList.forEach((button,i)=>{
+button.addEventListener("click",()=>{functionList(i)})
+})
 
     function two_word_solution(word_list, chars){
     let output = []
