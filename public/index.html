@@ -140,7 +140,7 @@ document.querySelector('.howMany').addEventListener("click",()=>{
 let total=solutions.length+1
 let p=document.querySelector(".pTotal")
 p.style.opacity="100%"
-p.innerHTML=`Total Solutions: ${total}`
+p.innerHTML=`Total Solutions: <span style='font-weight:bold;'>${total}</span>`
 })
 let functionList=[
   (pair,value)=>{
@@ -185,8 +185,15 @@ let functionList=[
       }
     })
     let s='s'
+    if(choiceTrue){
+      choiceTrue="Yes"
+    }else{
+      choiceTrue="No"
+    }
     specialResultList[i].style.opacity="100%"
-    specialResultList[i].innerHTML=`In NYT solution: ${choiceTrue}<br> In ${totalSolutionsTrue} other solution${s}`
+    specialResultList[i].innerHTML=`In NYT solution: 
+   <span style='font-weight:bold;'> ${choiceTrue}</span><br> 
+    In <span style='font-weight:bold;'>${totalSolutionsTrue}</span> other solution${s}`
     }
 
     function two_word_solution(word_list, chars){
