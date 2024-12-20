@@ -16,11 +16,10 @@
       .mainContainer{
         position:absolute;
         display:flex;
-        align-items:start;
+        align-items:center;
         justify-content: center;
         flex-direction: column;
         width:100vw;
-        margin-left:30vw;
       }
       button{
         display: inline-block;
@@ -65,8 +64,8 @@
       .result{
         font-size:20px;
         text-align:center;
-        min-height:20px;
-        margin-bottom:20px;
+        min-height:50px;
+        margin-bottom:30px;
       }
     </style>
   </head>
@@ -108,6 +107,12 @@
       <button class="howMany">Check</button>
       <p class="result pTotal"></p>
     </div>
+    <div class="questionContainer">
+      <p class="question">Does the letter
+      <input class="input" type="text" maxlength="1"></input> appear in both words?</p>
+      <button class="normalButton">Check</button>
+      <p class="result specialResult"></p>
+    </div>
   </div>
     <script>
     const areSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
@@ -140,7 +145,7 @@ document.querySelector('.howMany').addEventListener("click",()=>{
 let total=solutions.length+1
 let p=document.querySelector(".pTotal")
 p.style.opacity="100%"
-p.innerHTML=`Total Solutions: <span style='font-weight:bold;'>${total}</span>`
+p.innerHTML=`<span style='font-weight:bold;'>${total}</span> total solutions`
 })
 let functionList=[
   (pair,value)=>{
@@ -172,7 +177,13 @@ let functionList=[
       return true
     }
     return false
-  }
+  },
+  (pair,value)=>{
+  if(pair[0].includes(value)&&pair[1].includes(value)){
+      return true
+    }
+    return false
+  },
 ]
 
   function buttonFunction(i){
@@ -190,6 +201,7 @@ let functionList=[
     }else{
       choiceTrue="No"
     }
+    if(totalSolutionsTrue==1){s=''}
     specialResultList[i].style.opacity="100%"
     specialResultList[i].innerHTML=`In NYT solution: 
    <span style='font-weight:bold;'> ${choiceTrue}</span><br> 
