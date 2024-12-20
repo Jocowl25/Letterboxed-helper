@@ -60,6 +60,9 @@
       .long{
         width:220px;
       }
+      .result{
+        height:20px;
+      }
     </style>
   </head>
   <body>
@@ -68,37 +71,44 @@
     <div class="questionContainer">
       <p class="question">Is one of the words
       <input class="input long" type="text"></input> ?</p>
-      <button>Check</button>
-      <p class="result">Null</p>
+      <button class="normalButton">Check</button>
+      <p class="result specialResult"></p>
     </div>
     <div class="questionContainer">
       <p class="question">Does one of the words contain
       <input class="input" type="text"></input> ?</p>
-      <button>Check</button>
-      <p class="result">Null</p>
+      <button class="normalButton">Check</button>
+      <p class="result specialResult"></p>
     </div>
     <div class="questionContainer">
       <p class="question">Does one of the words start with
       <input class="input" type="text"></input> ?</p>
-      <button>Check</button>
-      <p class="result">Null</p>
+      <button class="normalButton">Check</button>
+      <p class="result specialResult"></p>
     </div>
     <div class="questionContainer">
       <p class="question">Does one of the words end with
       <input class="input" type="text"></input> ?</p>
-      <button>Check</button>
-      <p class="result">Null</p>
+      <button class="normalButton">Check</button>
+      <p class="result specialResult"></p>
     </div>
     <div class="questionContainer">
       <p class="question">Is the connecting letter
       <input class="input" type="text" maxlength="1"></input> ?</p>
-      <button>Check</button>
-      <p class="result">Null</p>
+      <button class="normalButton">Check</button>
+      <p class="result specialResult"></p>
+    </div>
+    <div class="questionContainer">
+      <p class="question">How many total solutions are there?</p>
+      <button class="howMany">Check</button>
+      <p class="result pTotal"></p>
     </div>
   </div>
     <script>
     const areSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
     let dummy;
+    let  nytChoiceSolution;
+    let solutions;
     let loadingFinished=false
       document.addEventListener('DOMContentLoaded', async() => {
         try{
@@ -108,22 +118,71 @@
           dummy=dummyStringFunction()
         }
     let nytData=JSON.parse(((dummy || JSON.stringify(response)).replaceAll('\\', '').slice(12,-2)))
-    let nytChoiceSolution=nytData.ourSolution
-    let solutions=solve_puzzle(nytData,nytChoiceSolution)
+     nytChoiceSolution=nytData.ourSolution
+     solutions=solve_puzzle(nytData,nytChoiceSolution)
     loadingFinished=true
-      })
-
-      function functionList(v){
-        
-      }
+      })      
 
 let inputList=document.querySelectorAll("input")
-let buttonList=document.querySelectorAll("button")
+let sameButtonList=document.querySelectorAll(".normalButton")
 let resultList = document.querySelectorAll(".result") 
+let specialResultList = document.querySelectorAll(".specialResult") 
 resultList.forEach((ele)=>{ele.style.opacity="0";})
-buttonList.forEach((button,i)=>{
-button.addEventListener("click",()=>{functionList(i)})
+sameButtonList.forEach((button,i)=>{
+button.addEventListener("click",()=>{if(loadingFinished&&inputList[i].value.length>0){buttonFunction(i)}})
 })
+document.querySelector('.howMany').addEventListener("click",()=>{
+let total=solutions.length+1
+let p=document.querySelector(".pTotal")
+p.style.opacity="100%"
+p.innerHTML=`Total Solutions: ${total}`
+})
+let functionList=[
+  (pair,value)=>{
+    if(pair[0]==value||pair[1]==value){
+      return true
+    }
+    return false
+  },
+(pair,value)=>{
+  if(pair[0].includes(value)||pair[1].includes(value)){
+      return true
+    }
+    return false
+  },
+  (pair,value)=>{
+  if(pair[0].startsWith(value)||pair[1].startsWith(value)){
+      return true
+    }
+    return false
+  },
+  (pair,value)=>{
+  if(pair[0].endsWith(value)||pair[1].endsWith(value)){
+      return true
+    }
+    return false
+  },
+  (pair,value)=>{
+  if(pair[1].charAt(0)==value){
+      return true
+    }
+    return false
+  }
+]
+
+  function buttonFunction(i){
+    let value=inputList[i].value.toUpperCase()
+    let choiceTrue=functionList[i](nytChoiceSolution,value)
+    let totalSolutionsTrue=0;
+    solutions.forEach((pair)=>{
+      if(functionList[i](pair,value)){
+        totalSolutionsTrue++
+      }
+    })
+    let s='s'
+    specialResultList[i].style.opacity="100%"
+    specialResultList[i].innerHTML=`In NYT solution: ${choiceTrue}<br> In ${totalSolutionsTrue} other solution${s}`
+    }
 
     function two_word_solution(word_list, chars){
     let output = []
