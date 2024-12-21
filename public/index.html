@@ -199,8 +199,8 @@ solutions.forEach((pair)=>{
   if(loadingFinished){
 let p=document.querySelector(".pAengths")
 p.style.opacity="100%"
-p.innerHTML=`<span style='font-weight:bold;'>In NYT Solution:</span> <br> ${nytChoiceSolution[0]} - ${nytChoiceSolution[1]}<br>`
-p.innerHTML+=`<span style='font-weight:bold;'>In Other Solutions:</span><br>`
+p.innerHTML=`<span style='font-weight:bold;'>NYT Solution:</span> <br> ${nytChoiceSolution[0]} - ${nytChoiceSolution[1]}<br>`
+p.innerHTML+=`<span style='font-weight:bold;'>Other Solutions:</span><br>`
 solutions.forEach((pair)=>{
  p.innerHTML+=`${pair[0]} - ${pair[1]}<br>`
 })
