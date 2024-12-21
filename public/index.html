@@ -67,6 +67,11 @@
         min-height:50px;
         margin-bottom:30px;
       }
+      select{
+        font-size:20px;
+        background-color: #f3c3c3be;
+        text-align:center;
+      }
     </style>
   </head>
   <body>
@@ -79,19 +84,32 @@
       <p class="result specialResult"></p>
     </div>
     <div class="questionContainer">
-      <p class="question">Does one of the words contain
+      <p class="question"><span class="does">Does</span> <select>
+<option>one of the words</option>
+<option>the first word</option>
+<option>the second word</option>
+<option>both words</option>
+      </select> contain
       <input class="input" type="text"></input> ?</p>
       <button class="normalButton">Check</button>
       <p class="result specialResult"></p>
     </div>
     <div class="questionContainer">
-      <p class="question">Does one of the words start with
+      <p class="question"><span class="does">Does</span> <select>
+        <option>one of the words</option>
+        <option>the first word</option>
+        <option>the second word</option>
+        <option>both words</option> </select> start with
       <input class="input" type="text"></input> ?</p>
       <button class="normalButton">Check</button>
       <p class="result specialResult"></p>
     </div>
     <div class="questionContainer">
-      <p class="question">Does one of the words end with
+      <p class="question"><span class="does">Does</span> <select>
+        <option>one of the words</option>
+        <option>the first word</option>
+        <option>the second word</option>
+        <option>both words</option></select> end with
       <input class="input" type="text"></input> ?</p>
       <button class="normalButton">Check</button>
       <p class="result specialResult"></p>
@@ -108,10 +126,14 @@
       <p class="result pTotal"></p>
     </div>
     <div class="questionContainer">
-      <p class="question">Does the letter
-      <input class="input" type="text" maxlength="1"></input> appear in both words?</p>
-      <button class="normalButton">Check</button>
-      <p class="result specialResult"></p>
+      <p class="question">What are the lengths of each solution?</p>
+      <button class="lengths">Check</button>
+      <p class="result pLengths"></p>
+    </div>
+    <div class="questionContainer">
+      <p class="question">What are the solutions?</p>
+      <button class="answers">Check</button>
+      <p class="result pAengths"></p>
     </div>
   </div>
     <script>
@@ -137,61 +159,144 @@ let inputList=document.querySelectorAll("input")
 let sameButtonList=document.querySelectorAll(".normalButton")
 let resultList = document.querySelectorAll(".result") 
 let specialResultList = document.querySelectorAll(".specialResult") 
+let selectList = document.querySelectorAll("select") 
+let spanList=document.querySelectorAll(".does") 
+selectList.forEach((sel,i)=>{
+  sel.addEventListener("change",()=>{
+    if(sel.value=="both words"){
+      spanList[i].innerText="Do"
+    }else{
+      spanList[i].innerText="Does"
+    }
+  })
+})
 resultList.forEach((ele)=>{ele.style.opacity="0";})
 sameButtonList.forEach((button,i)=>{
 button.addEventListener("click",()=>{if(loadingFinished&&inputList[i].value.length>0){buttonFunction(i)}})
 })
 document.querySelector('.howMany').addEventListener("click",()=>{
+  if(loadingFinished){
 let total=solutions.length+1
 let p=document.querySelector(".pTotal")
 p.style.opacity="100%"
 p.innerHTML=`<span style='font-weight:bold;'>${total}</span> total solutions`
+  }
+})
+document.querySelector('.lengths').addEventListener("click",()=>{
+  if(loadingFinished){
+let p=document.querySelector(".pLengths")
+p.style.opacity="100%"
+p.innerHTML=`<span style='font-weight:bold;'>In NYT Solution:</span> <br> ${nytChoiceSolution[0].length} - ${nytChoiceSolution[1].length}<br>`
+p.innerHTML+=`<span style='font-weight:bold;'>In Other Solutions:</span><br>`
+solutions.forEach((pair)=>{
+ p.innerHTML+=` ${pair[0].length} - ${pair[1].length}<br>`
+})
+  }
+  })
+  document.querySelector('.answers').addEventListener("click",()=>{
+  if(loadingFinished){
+let p=document.querySelector(".pAengths")
+p.style.opacity="100%"
+p.innerHTML=`<span style='font-weight:bold;'>In NYT Solution:</span> <br> ${nytChoiceSolution[0]} - ${nytChoiceSolution[1]}<br>`
+p.innerHTML+=`<span style='font-weight:bold;'>In Other Solutions:</span><br>`
+solutions.forEach((pair)=>{
+ p.innerHTML+=`${pair[0]} - ${pair[1]}<br>`
+})
+  }
 })
 let functionList=[
-  (pair,value)=>{
+  (pair,value,i)=>{
     if(pair[0]==value||pair[1]==value){
       return true
     }
     return false
   },
-(pair,value)=>{
+(pair,value,i)=>{
+  switch (selectList[i-1].value) {
+    case 'one of the words':
   if(pair[0].includes(value)||pair[1].includes(value)){
       return true
     }
     return false
+    case 'the first word':
+    if(pair[0].includes(value)){
+      return true
+    }
+    return false
+    case 'the second word':
+    if(pair[1].includes(value)||pair[1].includes(value)){
+      return true
+    }
+    return false
+    case 'both words':
+    if(pair[0].includes(value)&&pair[1].includes(value)){
+      return true
+    }
+    return false
+  }
   },
-  (pair,value)=>{
+  (pair,value,i)=>{
+    switch (selectList[i-1].value) {
+    case 'one of the words':
   if(pair[0].startsWith(value)||pair[1].startsWith(value)){
       return true
     }
     return false
+    case 'the first word':
+    if(pair[0].startsWith(value)){
+      return true
+    }
+    return false
+    case 'the second word':
+    if(pair[1].startsWith(value)||pair[1].startsWith(value)){
+      return true
+    }
+    return false
+    case 'both words':
+    if(pair[0].startsWith(value)&&pair[1].startsWith(value)){
+      return true
+    }
+    return false
+  }
   },
-  (pair,value)=>{
+  (pair,value,i)=>{
+  switch (selectList[i-1].value) {
+    case 'one of the words':
   if(pair[0].endsWith(value)||pair[1].endsWith(value)){
       return true
     }
     return false
+    case 'the first word':
+    if(pair[0].endsWith(value)){
+      return true
+    }
+    return false
+    case 'the second word':
+    if(pair[1].endsWith(value)||pair[1].endsWith(value)){
+      return true
+    }
+    return false
+    case 'both words':
+    if(pair[0].endsWith(value)&&pair[1].endsWith(value)){
+      return true
+    }
+    return false
+  }
   },
-  (pair,value)=>{
+  (pair,value,i)=>{
   if(pair[1].charAt(0)==value){
       return true
     }
     return false
-  },
-  (pair,value)=>{
-  if(pair[0].includes(value)&&pair[1].includes(value)){
-      return true
-    }
-    return false
-  },
+  }
 ]
 
   function buttonFunction(i){
     let value=inputList[i].value.toUpperCase()
-    let choiceTrue=functionList[i](nytChoiceSolution,value)
+    let choiceTrue=functionList[i](nytChoiceSolution,value,i)
     let totalSolutionsTrue=0;
     solutions.forEach((pair)=>{
-      if(functionList[i](pair,value)){
+      if(functionList[i](pair,value,i)){
         totalSolutionsTrue++
       }
     })
