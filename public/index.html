@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Letterboxed Helper</title>
-    <style>
+   <style>
       body{
         background-color: rgb(232, 153, 165);
         font-family:Arial, Helvetica, sans-serif;
@@ -145,12 +145,14 @@
     let dummy;
     let  nytChoiceSolution;
     let solutions;
+	let response;
     let loadingFinished=false
       document.addEventListener('DOMContentLoaded', async() => {
         try{
-          const response = await fetch('/.netlify/functions/hello-world')
+        response = await fetch('/.netlify/functions/hello-world')
 		.then(response => response.json())
         }catch{
+		alert("Sorry, this isn't working right now. :(")
           dummy=dummyStringFunction()
         }
     let nytData=JSON.parse(((dummy || JSON.stringify(response)).replaceAll('\\', '').slice(12,-2)))
@@ -201,8 +203,8 @@ solutions.forEach((pair)=>{
   if(loadingFinished){
 let p=document.querySelector(".pAengths")
 p.style.opacity="100%"
-p.innerHTML=`<span style='font-weight:bold;'>In NYT Solution:</span> <br> ${nytChoiceSolution[0]} - ${nytChoiceSolution[1]}<br>`
-p.innerHTML+=`<span style='font-weight:bold;'>In Other Solutions:</span><br>`
+p.innerHTML=`<span style='font-weight:bold;'>NYT Solution:</span> <br> ${nytChoiceSolution[0]} - ${nytChoiceSolution[1]}<br>`
+p.innerHTML+=`<span style='font-weight:bold;'>Other Solutions:</span><br>`
 solutions.forEach((pair)=>{
  p.innerHTML+=`${pair[0]} - ${pair[1]}<br>`
 })
