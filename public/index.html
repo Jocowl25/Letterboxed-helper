@@ -33,25 +33,26 @@
   background-color: #c71e1ebe;
   border: none;
   border-radius: 15px;
-  box-shadow: 0 2px #101010;
+  box-shadow: 0 3px #831313be;
+  font-size:25px;
       }
       button:hover{
-      background-color: #901515be;
+      background-color: #a81717be;
       }
       button:active{
-        background-color: #901515be;
+        background-color: #a81717be;
         box-shadow: 0 0 #101010;
-        transform: translateY(2px);
+        transform: translateY(3px);
       }
       .question{
         display:inline;
-        font-size:20px;
+        font-size:30px;
       }
       .input{
         border:none;
-        height:25px;
-        width:100px;
-        font-size:20px;
+        height:35px;
+        width:160px;
+        font-size:30px;
         border-bottom:2px solid black;
         border-radius: 2px;
         background-color: #f3c3c3be;
@@ -59,16 +60,19 @@
         text-align: center;
       }
       .long{
-        width:220px;
+        width:330px;
+      }
+      .short{
+        width:50px;
       }
       .result{
-        font-size:20px;
+        font-size:30px;
         text-align:center;
-        min-height:50px;
-        margin-bottom:30px;
+        min-height:70px;
+        margin-bottom:40px;
       }
       select{
-        font-size:20px;
+        font-size:30px;
         background-color: #f3c3c3be;
         text-align:center;
       }
@@ -116,7 +120,7 @@
     </div>
     <div class="questionContainer">
       <p class="question">Is the connecting letter
-      <input class="input" type="text" maxlength="1"></input> ?</p>
+      <input class="input short" type="text" maxlength="1"></input> ?</p>
       <button class="normalButton">Check</button>
       <p class="result specialResult"></p>
     </div>
@@ -141,14 +145,12 @@
     let dummy;
     let  nytChoiceSolution;
     let solutions;
-	let response;
     let loadingFinished=false
       document.addEventListener('DOMContentLoaded', async() => {
         try{
-        response = await fetch('/.netlify/functions/hello-world')
+          const response = await fetch('/.netlify/functions/hello-world')
 		.then(response => response.json())
         }catch{
-		alert("Sorry, this isn't working right now. :(")
           dummy=dummyStringFunction()
         }
     let nytData=JSON.parse(((dummy || JSON.stringify(response)).replaceAll('\\', '').slice(12,-2)))
@@ -199,8 +201,8 @@ solutions.forEach((pair)=>{
   if(loadingFinished){
 let p=document.querySelector(".pAengths")
 p.style.opacity="100%"
-p.innerHTML=`<span style='font-weight:bold;'>NYT Solution:</span> <br> ${nytChoiceSolution[0]} - ${nytChoiceSolution[1]}<br>`
-p.innerHTML+=`<span style='font-weight:bold;'>Other Solutions:</span><br>`
+p.innerHTML=`<span style='font-weight:bold;'>In NYT Solution:</span> <br> ${nytChoiceSolution[0]} - ${nytChoiceSolution[1]}<br>`
+p.innerHTML+=`<span style='font-weight:bold;'>In Other Solutions:</span><br>`
 solutions.forEach((pair)=>{
  p.innerHTML+=`${pair[0]} - ${pair[1]}<br>`
 })
@@ -294,7 +296,7 @@ let functionList=[
 ]
 
   function buttonFunction(i){
-    let value=inputList[i].value.toUpperCase()
+    let value=inputList[i].value.trim().toUpperCase()
     let choiceTrue=functionList[i](nytChoiceSolution,value,i)
     let totalSolutionsTrue=0;
     solutions.forEach((pair)=>{
