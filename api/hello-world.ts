@@ -11,5 +11,6 @@ export async function GET(request: Request) {
     let endstring = startparens + nyt.substring(startparens).indexOf("}")
     let metadata = JSON.parse(nyt.substring(startparens,endstring)+"}")
     let string=nyt.substring(startparens,endstring)+"}"
-    return new Response (JSON.stringify(string))
+    console.log(string)
+    return new Response(string)
     }
