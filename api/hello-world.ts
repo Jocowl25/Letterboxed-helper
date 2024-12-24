@@ -11,10 +11,5 @@ export async function GET(request: Request) {
     let endstring = startparens + nyt.substring(startparens).indexOf("}")
     let metadata = JSON.parse(nyt.substring(startparens,endstring)+"}")
     let string=nyt.substring(startparens,endstring)+"}"
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: string,
-      }),
+    return new Response (JSON.stringify(string))
     }
-}
