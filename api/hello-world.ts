@@ -1,4 +1,5 @@
 export async function GET(request: Request) {
+  console.log("async function loaded")
     const cheerio = require("cheerio")
     const axios = require("axios")
 	const url = `https://www.nytimes.com/puzzles/letter-boxed`;
