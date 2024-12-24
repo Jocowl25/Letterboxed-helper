@@ -4,6 +4,7 @@
     "cheerio": "^1.0.0",
     "netlify": "^13.2.0",
     "netlify-cli": "^17.38.0",
-    "node.js": "^0.0.1-security"
+    "node.js": "^0.0.1-security",
+    "vercel": "^39.2.2"
   }
 }
