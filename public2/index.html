@@ -150,7 +150,7 @@
       document.addEventListener('DOMContentLoaded', async() => {
         try{
         response = await fetch('/api/hello-world')
-		.then(response => response.json())
+		.then(alert(response))
         }catch{
 		alert("Sorry, this isn't working right now. :(")
           dummy=dummyStringFunction()
