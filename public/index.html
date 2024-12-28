@@ -153,6 +153,7 @@
 		.then(response => response.json())
         }catch{
 		alert("Sorry, this isn't working right now. :(")
+		document.querySelector('h1').innerHTML="Something's Wrong."
           dummy=dummyStringFunction()
         }
     let nytData=JSON.parse(((dummy || JSON.stringify(response)).replaceAll('\\', '').slice(12,-2)))
