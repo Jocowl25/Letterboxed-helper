@@ -1,2 +1,1 @@
-#ignore this big mess
-
+Letterboxed Hint Provider.
