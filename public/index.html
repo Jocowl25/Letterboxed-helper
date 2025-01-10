@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/site.webmanifest">
     <title>Letterboxed Helper</title>
    <style>
       body{
@@ -161,8 +165,9 @@
      solutions=solve_puzzle(nytData,nytChoiceSolution)
     loadingFinished=true
       })      
-
+let loadedDay=new Date().getDay()
 let inputList=document.querySelectorAll("input")
+let buttonList=document.querySelectorAll("button")
 let sameButtonList=document.querySelectorAll(".normalButton")
 let resultList = document.querySelectorAll(".result") 
 let specialResultList = document.querySelectorAll(".specialResult") 
@@ -180,6 +185,16 @@ selectList.forEach((sel,i)=>{
 resultList.forEach((ele)=>{ele.style.opacity="0";})
 sameButtonList.forEach((button,i)=>{
 button.addEventListener("click",()=>{if(loadingFinished&&inputList[i].value.length>0){buttonFunction(i)}})
+})
+buttonList.forEach((button,i)=>{
+button.addEventListener("click",()=>{
+  let dateNow=new Date().getDay();
+  if(dateNow!=loadedDay){
+    alert("The helper is out of date. Please refresh the page to update the Letterboxed data.")
+    document.querySelector('h1').innerHTML="Refresh the page!"
+    loadingFinished=false
+  }
+})
 })
 document.querySelector('.howMany').addEventListener("click",()=>{
   if(loadingFinished){
