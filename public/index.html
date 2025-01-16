@@ -129,7 +129,7 @@
       <p class="result specialResult"></p>
     </div>
     <div class="questionContainer">
-      <p class="question">How many total solutions are there?</p>
+      <p class="question">How many solutions are there?</p>
       <button class="howMany">Check</button>
       <p class="result pTotal"></p>
     </div>
@@ -201,7 +201,11 @@ document.querySelector('.howMany').addEventListener("click",()=>{
 let total=solutions.length+1
 let p=document.querySelector(".pTotal")
 p.style.opacity="100%"
-p.innerHTML=`<span style='font-weight:bold;'>${total}</span> total solutions`
+	if(total==1){
+	p.innerHTML=`<span style='font-weight:bold;'>${total}</span> solution`
+	return;
+	  }
+p.innerHTML=`<span style='font-weight:bold;'>${total}</span> solutions`
   }
 })
 document.querySelector('.lengths').addEventListener("click",()=>{
