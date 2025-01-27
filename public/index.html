@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
 <link rel="manifest" href="/favicon/site.webmanifest">
-    <title>Letterboxed Helper</title>
+    <title>Letter Boxed Helper</title>
    <style>
       body{
         background-color: rgb(232, 153, 165);
@@ -84,7 +84,7 @@
   </head>
   <body>
     <div class="mainContainer">
-      <h1>Letterboxed Helper</h1>
+      <h1>Letter Boxed Helper</h1>
     <div class="questionContainer">
       <p class="question">Is one of the words
       <input class="input long" type="text"></input> ?</p>
@@ -190,7 +190,7 @@ buttonList.forEach((button,i)=>{
 button.addEventListener("click",()=>{
   let dateNow=new Date().getDay();
   if(dateNow!=loadedDay){
-    alert("The helper is out of date. Please refresh the page to update the Letterboxed data.")
+    alert("The helper is out of date. Please refresh the page to update the Letter Boxed data.")
     document.querySelector('h1').innerHTML="Refresh the page!"
     loadingFinished=false
   }
