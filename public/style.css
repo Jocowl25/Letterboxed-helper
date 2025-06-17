@@ -1,0 +1,71 @@
+ body{
+        background-color: rgb(232, 153, 165);
+        font-family:Arial, Helvetica, sans-serif;
+        overflow-x:hidden;
+      }
+      h1{
+        font-size:40px;
+      }
+      .mainContainer{
+        position:absolute;
+        display:flex;
+        align-items:center;
+        justify-content: center;
+        flex-direction: column;
+        width:100vw;
+      }
+      button{
+        display: inline-block;
+        margin-left:5px;
+  padding: 5px 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #c71e1ebe;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 3px #831313be;
+  font-size:25px;
+      }
+      button:hover{
+      background-color: #a81717be;
+      }
+      button:active{
+        background-color: #a81717be;
+        box-shadow: 0 0 #101010;
+        transform: translateY(3px);
+      }
+      .question{
+        display:inline;
+        font-size:30px;
+      }
+      .input{
+        border:none;
+        height:35px;
+        width:160px;
+        font-size:30px;
+        border-bottom:2px solid black;
+        border-radius: 2px;
+        background-color: #f3c3c3be;
+        display:inline;
+        text-align: center;
+      }
+      .long{
+        width:330px;
+      }
+      .short{
+        width:50px;
+      }
+      .result{
+        font-size:30px;
+        text-align:center;
+        min-height:70px;
+        margin-bottom:40px;
+      }
+      select{
+        font-size:30px;
+        background-color: #f3c3c3be;
+        text-align:center;
+      }
