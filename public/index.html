@@ -184,8 +184,22 @@ selectList.forEach((sel,i)=>{
 })
 resultList.forEach((ele)=>{ele.style.opacity="0";})
 sameButtonList.forEach((button,i)=>{
-button.addEventListener("click",()=>{if(loadingFinished&&inputList[i].value.length>0){buttonFunction(i)}})
+
+  button.addEventListener("click",()=>{
+  if(loadingFinished&&inputList[i].value.length>0){
+    buttonFunction(i)
+  }
 })
+
+button.addEventListener("mousedown",()=>{
+  if(loadingFinished&&inputList[i].value.length>0){
+    specialResultList[i].style.opacity="0"
+  }
+})
+
+})
+
+
 buttonList.forEach((button,i)=>{
 button.addEventListener("click",()=>{
   let dateNow=new Date().getDay();
